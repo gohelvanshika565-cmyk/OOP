@@ -11,7 +11,8 @@ class time{
         cin>>seconds;
     }
 
-    void convert(){
+    //covert seconds into time
+    void convert(){  
         h = seconds / 3600;
         m = (seconds%3600) / 60;
         s = seconds % 60;
@@ -22,9 +23,23 @@ class time{
         cout<<m<<" minutes "<<endl;
         cout<<s<<" seconds"<<endl<<endl;
     
-        cout<<h<< " : "<<m<<" : "<<s<<endl<<endl;
+        cout<< "Time is: "<<h<< " : "<<m<<" : "<<s<<endl<<endl;
+    }
 
-        cout<<"Total seconds: "<<(h*3600)+(m*60)+s<<endl<<endl;
+    //convert time into seconds
+    void convert_(){ 
+        int total_seconds = (h * 3600) + (m * 60) + s;
+        cout<<endl<<"Total seconds: "<<total_seconds<<endl;
+    }
+
+    void display_(){
+        cout<<"Enter hours: ";
+        cin>>h;
+        cout<<"Enter minutes: ";
+        cin>>m;
+        cout<<"Enter seconds: ";
+        cin>>s;
+
     }
 };
 
@@ -33,6 +48,10 @@ int main(){
     t.getdata();
     t.convert();
     t.display();
+
+    time s;
+    s.display_();
+    s.convert_();
 
     return 0;
 }
