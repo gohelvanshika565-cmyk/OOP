@@ -1,151 +1,123 @@
 #include <iostream>
 using namespace std;
 
-class train
+class Train
 {
-
-    int train_no;
-    string train_name;
-    string source;
-    string destination;
-    string time;
+    int no;
+    string name, src, dest, time;
 
 public:
     static int count;
 
-    train()
-    {
-        train_no;
-        train_name;
-        source;
-        destination ;
-        time;
-    }
-    ~train()
-    {
-        // cout << "Train object destroyed\n";
-    }
+    // Constructor
+    Train(){
+        cout<<"\nEnter Train No: ";
+        cin>>no;
+        cin.ignore(1000, '\n');
 
-    void input()
-    {
+        cout<<"Enter Name: ";
+        getline(cin, name);
 
-        cout << "Enter Train Number : ";
-        cin >> train_no;
+        cout<<"Source: ";
+        getline(cin, src);
 
-        cin.ignore();
+        cout<<"Destination: ";
+        getline(cin, dest);
 
-        cout << "Enter name : ";
-        getline(cin, train_name);
-
-        cout << "Enter Source : ";
-        getline(cin, source);
-
-        cout << "Enter Destination : ";
-        getline(cin, destination);
-
-        cout << "Enter Time : ";
+        cout<<"Time: ";
         getline(cin, time);
 
-        count++;
-        cout << "\nTrain record added successfully." << endl<< endl;
-    }
-    void display()
-    {
-
-        cout << "\n Train Number : " << train_no;
-        cout << "\n Name : " << train_name;
-        cout << "\n Source : " << source;
-        cout << "\n Destination : " << destination;
-        cout << "\n Time : " << time << endl;
     }
 
-    int getnumber()
-    {
+    // Destructor
+    ~Train(){
+        cout << "\nTrain No " << no << " removed from system.";
+    }
 
-        return train_no;
+    void show()
+    {
+        cout<<"\nNo: " <<no;
+        cout<<"\nName: " <<name;
+        cout<<"\nFrom: " <<src;
+        cout<<"\nTo: " <<dest;
+        cout<<"\nTime: " <<time<<endl;
+    }
+
+    int getNo(){ 
+        return no; 
     }
 };
 
-int train ::count = 0;
+int Train::count = 0;
 
 int main()
 {
-
-    train t[20];
+    Train *t[50];
     int ch, num;
-    bool found = false;
 
     do
     {
-        cout << "\n1. Add";
-        cout << "\n2. Display";
-        cout << "\n3. Search";
-        cout << "\n4. Exit \n";
+        cout<<"\n\n1.Add";
+        cout<<"\n2.Show";
+        cout<<"\n3.Search";
+        cout<<"\n4.Exit";
+        cout<<"\n\nChoice: ";
+        cin>>ch;
 
-        cout << "Enter Choice : ";
-        cin >> ch;
-
-        switch (ch)
-        {
-        case 1:
-            if (train::count < 20)
-            {
-                t[train::count].input();
-            }
-            else
-            {
-                cout << "Record system is full.!" << endl;
-            }
-            break;
-
-        case 2:
-
-            if (train::count == 0)
-            {
-                cout << "No buses record found.!!";
-            }
-            else
-            {
-                for (int i = 0; i < train::count; i++)
-                {
-                    cout << "\n Train - " << i + 1 << endl;
-                    t[i].display();
+        switch (ch){
+            case 1:
+                if (Train::count < 50){
+                    t[Train::count] = new Train();
+                    Train::count++; 
                 }
-            }
-            break;
+                else{
+                    cout <<"Full!";
+                }
+                break;
 
-        case 3:
+            case 2:
+                if (Train::count == 0){
+                    cout << "No records found!!";
+                } 
+                else{
+                    cout << "\nTotal Trains: " << Train::count;
 
-            if (train::count == 0)
-            {
-                cout << "No train record found.!!";
-            }
-            else
-            {
-                cout << "Enter number to search : ";
+                    for (int i = 0; i < Train::count; i++) {
+                        cout << "\n--- Train " << i+1 << " ---";
+                        t[i]->show();
+                    }
+                    break;
+                }
+
+            case 3:{
+                bool found = false;
+                cout << "Enter Train No: ";
                 cin >> num;
 
-                for (int i = 0; i < 20; i++)
-                {
-                    if (t[i].getnumber() == num)
-                    {
+                for (int i = 0; i < Train::count; i++){
+                    if (t[i]->getNo() == num){
+                        t[i]->show();
                         found = true;
-                        t[i].display();
+                        break;
                     }
                 }
-
                 if (!found)
-                {
-                    cout << "Train not Found";
-                }
+                    cout << "Not Found!";
+                break;
             }
-            break;
 
-        case 4:
-            cout << "Exit";
-            break;
+            case 4:
+                cout << "Exit"<<endl<<endl;
+                break;
+
+            default:
+                cout<<"\nRong Choice..."<<endl;
         }
+
     } while (ch != 4);
+
+    for (int i = 0; i < Train::count; i++)
+        delete t[i];
 
     return 0;
 }

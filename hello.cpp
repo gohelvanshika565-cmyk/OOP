@@ -1,20 +1,20 @@
-#include <iostream>
+#include<iostream>
 using namespace std;
 
-void f(int x) {
-    if (x > 0) {
-        cout << x << " ";
-        f(x - 2);
-        cout << x << " ";
-    }
-}
-
-int main() {
-    int n;
-    cout << "Enter a number: ";
-    cin >> n;
-
-    f(n);
-
+class x{
+    int a=5;
+    friend class y;
+};
+class y{
+    public:
+        void show(x obj){
+            cout<<obj.a<<endl;
+        }
+};
+int main(){
+    y s;
+    x obj;        
+    s.show(obj); 
     return 0;
+
 }
