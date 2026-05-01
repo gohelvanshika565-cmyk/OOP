@@ -1,7 +1,5 @@
 #include <iostream>
 #include <string>
-// #include <stdexcept>
-
 using namespace std;
 
 const int MAX_ITEMS = 100;
